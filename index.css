@@ -145,10 +145,62 @@ button{
     font-size: 2em;
 }
 
-/* project section */
-.project-section{
+/* project section + daily section design*/
+.list-section{
+    border: 1px solid blue;
+    height: 100vh;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title-list{
+    border: 1px solid blue;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    /* justify-content: ce; */
+    align-items: center;
+}
+.title-list h2{
+    font-size: 1.7em;
+    letter-spacing: 0.2rem;
+}
+
+.add-section{
+    border: 1px solid green;
+    height: 8%;
+    width: 100%;
+    /* width: ; */
+    display: flex;
+    gap: 10px;
+}
+
+.add-section input{
+    width: 100%;
+    font-size: 1.3em;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.add-section input:focus{
     border: 1px solid blue;
 }
-.daily-section{
+
+.add-section button{
+    width: 20%;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+
+.list-container{
     border: 1px solid blue;
+}
+
+.task-list-container{
+    border: 1px solid green;
 }

@@ -28,6 +28,7 @@
 
         <!-- main panel -->
         <section class="main-panel-section">
+            <!-- dashboard section -->
             <section class="dashboard-section">
                 <div class="title-dashboard">
                     <h2>Dashboard</h2>
@@ -57,26 +58,30 @@
                 </div>
             </section>
 
+            <!-- project section -->
             <section class="list-section" id="project-section">
+                <div class="title-list">
+                    <h2>Project Section</h2>
+                </div>
                 <div class="add-section" id="add-project">
-                    <textarea name="project" id="project"></textarea>
-                    <button id="btn-add-project">+ Add Project</button>
+                    <input type="text" class="input" id="input-project" name="input-project">
+                    <button class="btn-add" id="btn-add-project">+ Add Project</button>
                 </div>
                 <div class="list-container" id="project-list-container">
                     <h2>Project List</h2>
-                    <div class="task-list" id="project-list">
-                        <ul class="tasks-list" id="project-list">
-                            <li id="project">
+                    <div class="task-list-container" id="project-list">
+                        <ul class="tasks-lists" id="project-list">
+                            <li class="list" id="project">
                                 <input type="checkbox">
                                 <span>To-Do-List</span>
                                 <button>Delete</button>
                             </li>
-                            <li id="project">
+                            <li class="list" id="project">
                                 <input type="checkbox">
                                 <span>To-Do-List</span>
                                 <button>Delete</button>
                             </li>
-                            <li id="project">
+                            <li class="list" id="project">
                                 <input type="checkbox">
                                 <span>To-Do-List</span>
                                 <button>Delete</button>
@@ -86,30 +91,35 @@
                 </div>
             </section>
 
+            <!-- daily section -->
             <section class="list-section" id="daily-section">
+                <div class="title-list">
+                    <h2>Daily Section</h2>
+                </div>
                 <div class="add-section" id="add-daily">
-                    <textarea name="daily" id="daily"></textarea>
-                    <button id="btn-add-daily">+ Add Daily</button>
+                    <input type="text" class="input" id="input-daily" name="input-daily">
+                    <button class="btn-add" id="btn-add-daily">+ Add Daily</button>
                 </div>
                 <div class="list-container" id="daily-list-container">
                     <h2>Project List</h2>
-                    <div class="task-list" id="daily-list">
-                        <ul class="tasks-list" id="daily-list">
-                            <li id="daily">
+                    <div class="task-list-container" id="daily-list">
+                        <ul class="tasks-lists" id="daily-list">
+                            <li class="list" id="daily">
                                 <input type="checkbox">
                                 <span>To-Do-List</span>
                                 <button>Delete</button>
                             </li>
-                            <li id="daily">
+                           <li class="list" id="daily">
                                 <input type="checkbox">
                                 <span>To-Do-List</span>
                                 <button>Delete</button>
                             </li>
-                            <li id="daily">
+                            <li class="list" id="daily">
                                 <input type="checkbox">
                                 <span>To-Do-List</span>
                                 <button>Delete</button>
                             </li>
+
                         </ul>
                     </div>
                 </div>
