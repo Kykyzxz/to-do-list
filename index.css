@@ -136,7 +136,7 @@ button{
     height: 40%;
     border-radius: 20px;
     display: flex;
-    /* align-items: center; */
+    /* a    lign-items: center; */
     padding: 30px;
     flex-direction: column;
     gap: 8px;
@@ -196,11 +196,75 @@ button{
     font-weight: 300;
 }
 
+.add-section button:hover{
+    background-color: aqua;
+}
 
+.add-section button:active{
+    background-color: black;
+}
+
+/* list container */
 .list-container{
     border: 1px solid blue;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+}
+.list-container h2{
+    font-size: 1.6em;
+    letter-spacing: 0.2rem;
 }
 
 .task-list-container{
     border: 1px solid green;
+    height: auto;
+    width: 100%;
+}
+
+.tasks-lists{
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.tasks-lists li{
+    border: 1px solid green;
+    display: flex;
+    height: 70px;
+    
+    justify-content: space-between;
+}
+.content-list-container{
+    border: 1px solid violet;
+    width: 90%;
+    display: flex;
+    /* justify-content: center; */
+    gap: 10px;
+    align-items: center;
+    padding: 20px;
+}
+.content-list-container input{
+    transform: scale(1.5);
+}
+
+.btn-delete-container{
+    border: 1px solid blue;
+    display: flex ;
+    width: 10%;
+}
+.btn-delete-container button{
+    width: 100%;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+}
+.btn-delete-container button:hover{
+    background-color: aqua;
+}
+.btn-delete-container button:active{
+    background-color:black;
 }
