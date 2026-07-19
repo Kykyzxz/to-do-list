@@ -251,6 +251,9 @@ button{
     transform: scale(1.5);
 }
 
+.content-list-container span{
+    font-size: 1.25rem;
+}
 .btn-delete-container{
     border: 1px solid blue;
     display: flex ;
@@ -268,3 +271,4 @@ button{
 .btn-delete-container button:active{
     background-color:black;
 }
+
