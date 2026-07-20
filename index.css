@@ -8,7 +8,14 @@ body{
     width: 100%;
     height: 100vh;
     display: flex;
+    /* background-color: aqua; */
 }
+/* Strikethrough design */
+.completed{
+    text-decoration: line-through;
+}
+
+
 
 .left-side-panel{
     border: 1px solid black;
@@ -68,7 +75,7 @@ body{
     border: 1px solid blue;
     height: 100vh;
     width: 100%;
-    display: none;
+    display: block;
     /* margin: 0; */
 }
 
@@ -231,13 +238,15 @@ button{
     flex-direction: column;
     gap: 5px;
 }
+
 .tasks-lists li{
     border: 1px solid green;
     display: flex;
     height: 70px;
-    
     justify-content: space-between;
 }
+
+
 .content-list-container{
     border: 1px solid violet;
     width: 90%;
