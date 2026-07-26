@@ -125,11 +125,7 @@ dashboard.addEventListener('click', () => {
     dailySection.style.display = 'none';
 });
 
-
-
-
-
-
+//project section
 const projects = document.getElementById('btn-projects');
 projects.addEventListener('click', () => {
     dashboardSection.style.display = 'none';
@@ -139,7 +135,7 @@ projects.addEventListener('click', () => {
 });
 
 
-
+//daily section
 const daily = document.getElementById('btn-daily');
 daily.addEventListener('click', () => {
     dashboardSection.style.display = 'none';
