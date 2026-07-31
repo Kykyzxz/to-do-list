@@ -4,110 +4,159 @@ const addProject = document.getElementById('btn-add-project');
 const projectList = document.getElementById('project-list')
 const deleteProject = document.getElementById('delete-project')
 
-//add project function
+const STORAGE_KEY = 'todoAppData';
 
-addProject.addEventListener('click', () => {
-    const inputValue = inputElement.value;
-    console.log(inputValue)
-    console.log(projectList)
-    console.log(inputElement)
-    // check inputs if empty
-    if(inputValue === ''){
-        alert('Please enter a valid input!');
-        // return and stop if there's no valid input
-        return; 
-    }
+function saveTasks() {
+    const projectItems = Array.from(projectList.querySelectorAll('li.project-item')).map(item => {
+        const span = item.querySelector('span');
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        return {
+            text: span ? span.textContent.trim() : '',
+            completed: checkbox ? checkbox.checked : false
+        };
+    });
 
+    const dailyItems = Array.from(dailyList.querySelectorAll('li.daily-item')).map(item => {
+        const span = item.querySelector('span');
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        return {
+            text: span ? span.textContent.trim() : '',
+            completed: checkbox ? checkbox.checked : false
+        };
+    });
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ projects: projectItems, daily: dailyItems }));
+}
+
+function createProjectItem(data) {
     const newItem = document.createElement('li');
     newItem.classList.add('list', 'project-item');
 
     newItem.innerHTML = `
         <div class="content-list-container" id="content-project">
             <input type="checkbox" id="checkbox-project">
-            <span>${inputValue}</span>
+            <span>${data.text}</span>
         </div>
         <div class="btn-delete-container" id="btn-delete-project">
             <button class="delete-project">Delete</button>
         </div>
-    `
-    // delete function of the newly added item
-    const deleteBtn = newItem.querySelector('.delete-project');
-    deleteBtn.addEventListener('click', () =>{
-        newItem.remove();
-    });
+    `;
 
-    //selects the exact list then strikethrough 
     const checkboxProj = newItem.querySelector('input[type="checkbox"]');
     const taskTextProj = newItem.querySelector('span');
+    const deleteBtn = newItem.querySelector('.delete-project');
+
+    checkboxProj.checked = data.completed;
+    if (data.completed) {
+        taskTextProj.classList.add('completed');
+    }
+
+    deleteBtn.addEventListener('click', () => {
+        newItem.remove();
+        updateCounts();
+        saveTasks();
+    });
 
     checkboxProj.addEventListener('change', () => {
         taskTextProj.classList.toggle('completed', checkboxProj.checked);
+        updateCounts();
+        saveTasks();
     });
 
-    // add to the child element
     projectList.appendChild(newItem);
+    updateCounts();
+    saveTasks();
+}
 
-    // delete / clear the inputs
-    inputElement.value = '';
-
-})
-
-
-// const projectList = document.getElementById('project-list');
-const inputDailyElement = document.getElementById('input-daily');
-const addDaily = document.getElementById('btn-add-daily');
-const dailyList = document.getElementById('daily-list')
-const deleteDaily = document.getElementById('btn-delete-daily');
-
-//add daily function
-addDaily.addEventListener('click', () => {
-    const inputValue = inputDailyElement.value;
-    // console.log(inputDaily)
-    // console.log(inputDailyElement);
-    // console.log(addDaily);
-    // console.log(dailyList)
-
-    //check if the input is valid
-    if(inputValue === ''){
-        alert('Please enter a valid input!');
-        return;
-    }
-
-    const newItem = document.createElement('li')
+function createDailyItem(data) {
+    const newItem = document.createElement('li');
     newItem.classList.add('list', 'daily-item');
-    
+
     newItem.innerHTML = `
         <div class="content-list-container" id="content-daily">
             <input type="checkbox" id="checkbox-daily">
-            <span>${inputValue}</span>
+            <span>${data.text}</span>
         </div>
         <div class="btn-delete-container" id="btn-delete-daily">
             <button class="delete-daily">Delete</button>
         </div>
-    `
+    `;
 
-    //delete function of the daily list
-    const deleteBtn = newItem.querySelector('.delete-daily');
-    deleteBtn.addEventListener('click', () => {
-        newItem.remove();
-    });
-
-    //strikethrough design
     const checkboxDaily = newItem.querySelector('input[type="checkbox"]');
     const taskTextDaily = newItem.querySelector('span');
-    checkboxDaily.addEventListener('change', () => {
-        taskTextDaily.classList.toggle('completed', checkboxDaily.checked);
+    const deleteBtn = newItem.querySelector('.delete-daily');
+
+    checkboxDaily.checked = data.completed;
+    if (data.completed) {
+        taskTextDaily.classList.add('completed');
+    }
+
+    deleteBtn.addEventListener('click', () => {
+        newItem.remove();
+        updateCounts();
+        saveTasks();
     });
 
-    // add to the child element
+    checkboxDaily.addEventListener('change', () => {
+        taskTextDaily.classList.toggle('completed', checkboxDaily.checked);
+        updateCounts();
+        saveTasks();
+    });
+
     dailyList.appendChild(newItem);
+    updateCounts();
+    saveTasks();
+}
 
-    // delete / clear the inputs
+function loadTasks() {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (!savedData) {
+        updateCounts();
+        return;
+    }
+
+    try {
+        const parsed = JSON.parse(savedData);
+        if (Array.isArray(parsed.projects)) {
+            parsed.projects.forEach(task => createProjectItem(task));
+        }
+        if (Array.isArray(parsed.daily)) {
+            parsed.daily.forEach(task => createDailyItem(task));
+        }
+    } catch (error) {
+        console.error('Failed to load tasks from localStorage', error);
+    }
+}
+
+//add project function
+
+addProject.addEventListener('click', () => {
+    const inputValue = inputElement.value.trim();
+    if (inputValue === '') {
+        alert('Please enter a valid input!');
+        return;
+    }
+
+    createProjectItem({ text: inputValue, completed: false });
+    inputElement.value = '';
+});
+
+const inputDailyElement = document.getElementById('input-daily');
+const addDaily = document.getElementById('btn-add-daily');
+const dailyList = document.getElementById('daily-list');
+const deleteDaily = document.getElementById('btn-delete-daily');
+
+//add daily function
+addDaily.addEventListener('click', () => {
+    const inputValue = inputDailyElement.value.trim();
+    if (inputValue === '') {
+        alert('Please enter a valid input!');
+        return;
+    }
+
+    createDailyItem({ text: inputValue, completed: false });
     inputDailyElement.value = '';
-
-})
-
-
+});
 
 //section separation
 
@@ -141,7 +190,29 @@ daily.addEventListener('click', () => {
     dashboardSection.style.display = 'none';
     // dashboardSection.style.backgroundColor = 'blue';
     projectSection.style.display = 'none';
-    dailySection.style.display = 'block';
+    dailySection.style.display = 'block';   
 });
 
+//count function
+const totalListCount = document.getElementById('total-list-count');
+const projectListCount = document.getElementById('total-project-count');
+const dailyListCount = document.getElementById('total-daily-count');
+const completedListCount = document.getElementById('total-completed-count');
 
+function updateCounts() {
+    const projectItems = projectList.querySelectorAll('li.project-item');
+    const dailyItems = dailyList.querySelectorAll('li.daily-item');
+    const completedItems = document.querySelectorAll('.tasks-lists li input[type="checkbox"]:checked');
+
+    const projectCount = projectItems.length;
+    const dailyCount = dailyItems.length;
+
+    projectListCount.textContent = projectCount;
+    dailyListCount.textContent = dailyCount;
+    totalListCount.textContent = projectCount + dailyCount;
+    completedListCount.textContent = completedItems.length;
+}
+
+loadTasks();
+
+  
